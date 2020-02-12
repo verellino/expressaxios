@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  .logo 
+    img(src="public/images/bukitvista.png", alt="Bukit Vista")
+  h1 Hi, #{res.data.owner}!
+  p Here are the summary for this months revenue:  
+  #summary
+    .container
+      .item-a Total Transactions: 
+      .item-a Payment recieved: 
+      .item-a Payment to Bukit Vista: 
+         
+      .item-b $ #{res.data.total_transaction}
+      .two $ #{res.data.payment_done_partner} 
+      .three $ #{res.data.payment_done_bukitvista}
+  
+  
+
+  #details
+    h2 Details
+    hr
+
+    table.booktable
+      tr
+        th Guest Name
+        th Check-in
+        th Nights of Stay
+        th Total Revenue ($)
+        th Payment Recieved
+
+      each booking in res2.data
+        if booking.payment_status == "Confirmed"
+          tr
+            td.tleft #{booking.guest_name}
+            td #{booking.check_in}
+            td #{booking.nights}
+            td #{booking.booking_value}
+            td #{booking.payment_status}
