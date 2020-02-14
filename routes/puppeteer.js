@@ -3,6 +3,7 @@ var router = express.Router();
 const puppeteer = require('puppeteer');
 const http = require('http');
 
+
 (async function printPDF() {
     
     try{
@@ -31,6 +32,6 @@ const http = require('http');
     catch (e) {
         console.log('our error', e);
     }
-})();
+});
 
 module.exports = router;
