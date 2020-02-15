@@ -7,17 +7,19 @@ const http = require('http');
 
 /* GET Specific property with year-month */
 
-router.get('/:property_id/:yearMonth', function (req, res) {
+router.get('/:property_id/:yearMonth/:user_id/:token', function (req, res) {
   
   var property_id = req.params.property_id;
   var yearMonth = req.params.yearMonth;
+  var user_id = req.params.user_id;
+  var token = req.params.token;
   
   //axios
   axios({
     headers: {
       'Content-Type': 'application/json',
-      'token': process.env.API_TOKEN,
-      'user_id': process.env.API_USER_ID
+      'token': token,
+      'user_id': user_id
     },
     method: 'post',
     url: process.env.API_SERVER + '/v1/finance-report-by-property',
@@ -30,8 +32,8 @@ router.get('/:property_id/:yearMonth', function (req, res) {
       axios({
         headers: {
           'Content-Type': 'application/json',
-          'token': process.env.API_TOKEN,
-          'user_id': process.env.API_USER_ID
+          'token': token,
+          'user_id': user_id
         },
         method: 'post',
         url: process.env.API_SERVER + '/v1/getBookingListWithPayouts?page=0&limit=25',
@@ -54,35 +56,37 @@ router.get('/:property_id/:yearMonth', function (req, res) {
     });
 });
 
-router.get('/print/:property_id/:yearMonth', async function printPDF(req) {
+router.get('/print/:property_id/:yearMonth/:user_id/:token', async function printPDF(req) {
     
   var property_id = req.params.property_id;
   var yearMonth = req.params.yearMonth;
+  var user_id = req.params.user_id;
+  var token = req.params.token;
 
   try{
       const browser = await puppeteer.launch({ headless: true});
       const page = await browser.newPage();
-      await  page.goto('http://localhost:' + process.env.PORT + '/' + property_id + '/' + yearMonth, { waitUntil: 'networkidle0' } );
+      await  page.goto('http://localhost:' + process.env.PORT + '/' + property_id + '/' + yearMonth + '/' + user_id + '/' + token, { waitUntil: 'networkidle0' } );
   
       // await page.screenshot({path: 'example.png'});
-      //await page.pdf({
-      //    path:'monthlyreport.pdf',
-      //    format: 'A4',
-      //    margin:{
-      //        top: "5px",
-      //        right: "10px",
-      //        left: "10px",
-      //        bottom: "5px"
-      //    },
-      //    printBackground: true
-      //});
+      await page.pdf({
+          path:'monthlyreport.pdf',
+          format: 'A4',
+          margin:{
+              top: "5px",
+              right: "10px",
+              left: "10px",
+              bottom: "5px"
+          },
+          printBackground: true
+      });
 
-      const printPdf = await page.pdf({ format: 'A4' });
+      // const pdf = await page.pdf({ format: 'A4' });
 
       console.log('PDF file created');
       await browser.close();
-      return printPDF
-      // process.exit();
+      // return pdf
+       process.exit();
 
   }
 
