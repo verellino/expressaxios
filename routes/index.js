@@ -36,14 +36,14 @@ router.get('/:property_id/:yearMonth/:user_id/:token', function (req, res) {
           'user_id': user_id
         },
         method: 'post',
-        url: process.env.API_SERVER + '/v1/getBookingListWithPayouts?page=0&limit=25',
+        url: process.env.API_SERVER + '/v1/getBookingListWithPayouts?page=0&limit=500',
         data: {
           "property_ids": [ property_id ]
         }
       }).then(booking => {
         // console.log(summary.data);
-        // console.log(booking.data);
-        console.log(req.params)
+         console.log(booking.data);
+        console.log(req.params);
         res.render('index', { 
           res: summary.data,
           res2: booking.data 
@@ -56,7 +56,7 @@ router.get('/:property_id/:yearMonth/:user_id/:token', function (req, res) {
     });
 });
 
-router.get('/print/:property_id/:yearMonth/:user_id/:token', async function printPDF(req) {
+router.get('/print/:property_id/:yearMonth/:user_id/:token', async function printPDF(req, res) {
     
   var property_id = req.params.property_id;
   var yearMonth = req.params.yearMonth;
@@ -69,8 +69,8 @@ router.get('/print/:property_id/:yearMonth/:user_id/:token', async function prin
       await  page.goto('http://localhost:' + process.env.PORT + '/' + property_id + '/' + yearMonth + '/' + user_id + '/' + token, { waitUntil: 'networkidle0' } );
   
       // await page.screenshot({path: 'example.png'});
-      await page.pdf({
-          path:'monthlyreport.pdf',
+      const pdf = await page.pdf({
+          path: property_id + '_' + yearMonth + '.pdf',
           format: 'A4',
           margin:{
               top: "5px",
@@ -81,12 +81,12 @@ router.get('/print/:property_id/:yearMonth/:user_id/:token', async function prin
           printBackground: true
       });
 
-      // const pdf = await page.pdf({ format: 'A4' });
-
       console.log('PDF file created');
       await browser.close();
-      // return pdf
-       process.exit();
+      return pdf
+      // process.exit();
+
+      // Response this call with the path of the file
 
   }
 

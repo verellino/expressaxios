@@ -24,10 +24,13 @@ block content
     table.booktable
       tr
         th Guest Name
-        th Check-in
-        th Nights of Stay
-        th Total Revenue ($)
-        th Payment Recieved
+        th Booking ID and unit name
+        th Check-in and check out
+        th Length of Stay
+        th Booking value, BV commission, and payout value
+        th Payout date
+        th Transfer amount
+            // Sort all rows by transfer value + bundle ID
 
       each booking in res2.data
         if booking.payment_status == "Confirmed"
@@ -36,4 +39,4 @@ block content
             td #{booking.check_in}
             td #{booking.nights}
             td #{booking.booking_value}
-            td #{booking.payment_status}
+            // td #{booking.payment_status}
