@@ -42,8 +42,8 @@ router.get('/:property_id/:yearMonth/:user_id/:token', function (req, res) {
         }
       }).then(booking => {
         // console.log(summary.data);
-         console.log(booking.data);
-        console.log(req.params);
+        //  console.log(booking.data);
+        // console.log(req.params);
         res.render('index', { 
           res: summary.data,
           res2: booking.data 

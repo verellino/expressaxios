@@ -1,42 +1,60 @@
 extends layout
 
 block content
-  .logo 
+  #header
+    .logo 
     img(src="public/images/bukitvista.png", alt="Bukit Vista")
-  h1 Hi, #{res.data.owner}!
-  p Here are the summary for this months revenue:  
-  #summary
-    .container
-      .item-a Total Transactions: 
-      .item-a Payment recieved: 
-      .item-a Payment to Bukit Vista: 
+    #title
+      h1 Hi, #{res.data.owner}!
+      h1 Villa's Name  
+  table#summary-table
+    tr
+      th.tleft Details
+      th.aright Total
+    tr
+      td Total Transactions :
+      td.aright $ #{res.data.total_transaction}
+    tr
+      td Payment Recieved :
+      td.aright $ #{res.data.payment_done_partner} 
+    tr
+      td Payment to BV :
+      td.aright $ #{res.data.payment_done_bukitvista}
+  //- #summary
+  //-   .container
+  //-     .item-a Total Transactions: 
+  //-     .item-a Payment recieved: 
+  //-     .item-a Payment to Bukit Vista: 
          
-      .item-b $ #{res.data.total_transaction}
-      .two $ #{res.data.payment_done_partner} 
-      .three $ #{res.data.payment_done_bukitvista}
-  
-  
+  //-     .item-b $ #{res.data.total_transaction}
+  //-     .two $ #{res.data.payment_done_partner} 
+  //-     .three $ #{res.data.payment_done_bukitvista}
 
   #details
-    h2 Details
-    hr
+    h2 Booking details
 
-    table.booktable
+    table.dtable
       tr
-        th Guest Name
-        th Booking ID and unit name
-        th Check-in and check out
+        th.tleft Guest Name
+        th Check-in
         th Length of Stay
-        th Booking value, BV commission, and payout value
+        th Booking value*
         th Payout date
-        th Transfer amount
-            // Sort all rows by transfer value + bundle ID
+        th.aright Transfer amount
 
       each booking in res2.data
         if booking.payment_status == "Confirmed"
           tr
-            td.tleft #{booking.guest_name}
+            td.tleft 
+              <h3>#{booking.guest_name}</h3>
+              <h4>#{booking.booking_id}</h4>
             td #{booking.check_in}
             td #{booking.nights}
             td #{booking.booking_value}
-            // td #{booking.payment_status}
+            td #{booking.payouts}
+            td.aright #{booking.transfer_value}
+            //- td #{booking.payment_status}
+  h3 *including BV commission, and payout value
+  #footer
+    h2 Bukit Vista Finance
+    h3 {finance_name} - {finance_number}
