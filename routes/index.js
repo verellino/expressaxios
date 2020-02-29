@@ -6,8 +6,8 @@ const http = require('http');
 
 
 /* GET Specific property with year-month */
-
-router.get('/:property_id/:yearMonth/:user_id/:token', function (req, res) {
+// /:property_id/:yearMonth/:user_id/:token
+router.get('/', function (req, res) {
   
   var property_id = req.params.property_id;
   var yearMonth = req.params.yearMonth;
@@ -18,45 +18,28 @@ router.get('/:property_id/:yearMonth/:user_id/:token', function (req, res) {
   axios({
     headers: {
       'Content-Type': 'application/json',
-      'token': token,
-      'user_id': user_id
+      // 'token': token,
+      // 'user_id': user_id
     },
     method: 'post',
-    url: process.env.API_SERVER + '/v1/finance-report-by-property',
+    url: process.env.API_SERVER,
     data: {
-      "property_id": property_id,
-      "month": yearMonth
+      // "property_id": property_id,
+      // "month": yearMonth
     }
   })
     .then(summary => {
-      axios({
-        headers: {
-          'Content-Type': 'application/json',
-          'token': token,
-          'user_id': user_id
-        },
-        method: 'post',
-        url: process.env.API_SERVER + '/v1/getBookingListWithPayouts?page=0&limit=500',
-        data: {
-          "property_ids": [ property_id ]
-        }
-      }).then(booking => {
-        // console.log(summary.data);
-        //  console.log(booking.data);
-        // console.log(req.params);
-        res.render('index', { 
-          res: summary.data,
-          res2: booking.data 
-        });
-      }).catch(err => {
-        console.log(err);
+      console.log(summary.data);
+      res.render('index', { 
+        
+        res: summary.data
       });
     }).catch(err => {
       console.log(err);
     });
 });
 
-router.get('/print/:property_id/:yearMonth/:user_id/:token', async function printPDF(req, res) {
+router.get('/print/', async function printPDF(req, res) {
     
   var property_id = req.params.property_id;
   var yearMonth = req.params.yearMonth;
@@ -66,24 +49,25 @@ router.get('/print/:property_id/:yearMonth/:user_id/:token', async function prin
   try{
       const browser = await puppeteer.launch({ headless: true});
       const page = await browser.newPage();
-      await  page.goto('http://localhost:' + process.env.PORT + '/' + property_id + '/' + yearMonth + '/' + user_id + '/' + token, { waitUntil: 'networkidle0' } );
+      // + property_id + '/' + yearMonth + '/' + user_id + '/' + token
+      await  page.goto('http://localhost:' + process.env.PORT , { waitUntil: 'networkidle0' } );
   
       // await page.screenshot({path: 'example.png'});
       const pdf = await page.pdf({
           path: property_id + '_' + yearMonth + '.pdf',
           format: 'A4',
           margin:{
-              top: "5px",
-              right: "10px",
-              left: "10px",
-              bottom: "5px"
+              top: "1.5cm",
+              right: "1.5cm",
+              left: "1.5cm",
+              bottom: "1.5cm"
           },
           printBackground: true
       });
 
       console.log('PDF file created');
       await browser.close();
-      return pdf
+      return pdf;
       // process.exit();
 
       // Response this call with the path of the file
@@ -95,7 +79,7 @@ router.get('/print/:property_id/:yearMonth/:user_id/:token', async function prin
   }
 }
 
-)
+);
 
 
 module.exports = router;

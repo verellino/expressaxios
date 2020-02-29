@@ -3,6 +3,7 @@ body {
   margin:0;
   padding: 20px;
   font: 12px "Muli", Helvetica, Arial, sans-serif;
+  position: relative;
 }
 h1 {
   font-size: 20px;
@@ -14,12 +15,13 @@ h2 {
   font-size: 16px;
   font-weight: 700;
   color: #1076BC;
+  margin: 0 0 5px 0;
 }
 
 h3 {
   font-size: 12px;
   font-weight: 500;
-  margin-bottom: 5px;
+  margin: 0 0 5px 0;
 }
 h4 {
   font-size: 8px;
@@ -34,6 +36,7 @@ p{
   width: 100%;
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
 }
 .logo {  
   max-width: 150px;
@@ -49,28 +52,6 @@ p{
 .aright{
   text-align: right;
 }
-/* .container {
-  display: grid;
-  max-width: 300px;
-  row-gap: 10px;
-}
-.item-a {
-  grid-column-start: 1;
-  border-bottom: 1.5px solid rgba(7,49,75,20%);
-}
-
-.item-b {
-  grid-column-start: 2;
-  grid-row-start: 1;
-}
-.two {
-  grid-column-start: 2;
-  grid-row-start: 2;
-}
-.three {
-  grid-column-start: 2;
-  grid-row-start: 3;
-} */
 #details {
   width: 100%;
 }
@@ -82,24 +63,69 @@ th{
   color: #1076BC;
 }
 th,td{
+  font-size: 8;
   padding:10px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 #text-template{
 display: none;
 }
 .tleft {
   text-align: left;
+  max-width: 100px;
+}
+.checkindate{
+  max-width: 50px;
+}
+.total {
+  text-align: right;
+  font-size: 16px;
+  color: #1076BC;
+  font-weight: 700;
+  border-top: 1px solid rgb(214, 214, 214);
 }
 table,td,th{
   /* border-bottom: 1.5px solid rgba(7,49,75,10%); */
   border-collapse: collapse;
 }
 tr:nth-child(even) {
-  background-color: rgba(7,49,75,5%);
+  background-color: rgba(7,49,75,6%);
 }
-
+.borderbottom{
+  border-bottom: 1px solid rgb(16, 119, 188);
+}
+.info {
+  color: #1076BC;
+}
 #footer{
+  position: relative;
+  display: flex;
+  width: 100%;
   margin-top: 25px;
+  justify-content: space-between;
+  height: 200px;
+}
+.owner-left{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  position: absolute;
+  align-items: flex-start;
+  bottom: 0;
+}
+.rizkyright{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+}
+.rizky{
+  border-radius: 100%;
+  max-width: 125px;
+  border: 1px dashed rgba(16, 119, 188, 0.18);
 }

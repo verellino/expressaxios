@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 var createError = require('http-errors');
 var express = require('express');
@@ -26,7 +26,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-// app.use('/pdf', pupRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

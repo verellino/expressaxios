@@ -2,33 +2,25 @@ extends layout
 
 block content
   #header
-    .logo 
-    img(src="public/images/bukitvista.png", alt="Bukit Vista")
+    img.logo(src="https://user-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/66671/BukitVista_LOGO_ONLY_transparent_negces.png", alt="Bukit Vista",)
     #title
-      h1 Hi, #{res.data.owner}!
-      h1 Villa's Name  
+     h1 #{res.data.property.property_name} 
+
+      h4 #{res.data.property.property_address}, #{res.data.property.area_name}
+  h2 Summary for #{res.data.finance_summary.finance_month}
   table#summary-table
     tr
       th.tleft Details
       th.aright Total
     tr
       td Total Transactions :
-      td.aright $ #{res.data.total_transaction}
+      td.aright #{res.data.finance_summary.total_transaction}
     tr
       td Payment Recieved :
-      td.aright $ #{res.data.payment_done_partner} 
+      td.aright #{res.data.finance_summary.sent_to_partner.value} 
     tr
       td Payment to BV :
-      td.aright $ #{res.data.payment_done_bukitvista}
-  //- #summary
-  //-   .container
-  //-     .item-a Total Transactions: 
-  //-     .item-a Payment recieved: 
-  //-     .item-a Payment to Bukit Vista: 
-         
-  //-     .item-b $ #{res.data.total_transaction}
-  //-     .two $ #{res.data.payment_done_partner} 
-  //-     .three $ #{res.data.payment_done_bukitvista}
+      td.aright #{res.data.finance_summary.sent_to_bv.value}
 
   #details
     h2 Booking details
@@ -41,20 +33,37 @@ block content
         th Booking value*
         th Payout date
         th.aright Transfer amount
-
-      each booking in res2.data
-        if booking.payment_status == "Confirmed"
+      
+      each transaction_details in res.data.transaction_details
+        each transactions in transaction_details.transactions
           tr
             td.tleft 
-              <h3>#{booking.guest_name}</h3>
-              <h4>#{booking.booking_id}</h4>
-            td #{booking.check_in}
-            td #{booking.nights}
-            td #{booking.booking_value}
-            td #{booking.payouts}
-            td.aright #{booking.transfer_value}
-            //- td #{booking.payment_status}
-  h3 *including BV commission, and payout value
+              <h3>#{transactions.guest_name}</h3>
+              <h4>#{transactions.booking_id}</h4>
+            td.checkindate #{transactions.booking_check_in}
+            td #{transactions.length_of_stay}
+            td #{transactions.booking_value}
+            td #{transactions.payouts}
+            td.aright
+        tr.borderbottom 
+          td
+          td
+          td
+          td
+          td
+          td.total #{transaction_details.bundle_value}
+
+  p.info *including BV commission, and payout value
   #footer
-    h2 Bukit Vista Finance
-    h3 {finance_name} - {finance_number}
+    .owner-left
+      h2 Owner(s): 
+      if (res.data.property.property_owners.length >= 0)
+       each owner in res.data.property.property_owners
+        if (res.data.property.property_owners.length == 1)
+          h2 #{property_owners.name}
+        else if (res.data.property.property_owners.length > 1)
+          h2= owner.name + ' , '
+    .rizkyright
+      img.rizky(src="https://user-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/66671/364395_604578.jpeg", alt="Rizky BV")
+      h2 Bukit Vista Finance
+      h3 Rizky - 08123456789
