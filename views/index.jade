@@ -7,20 +7,20 @@ block content
      h1 #{res.data.property.property_name} 
 
       h4 #{res.data.property.property_address}, #{res.data.property.area_name}
-  h2 Summary for #{res.data.finance_summary.finance_month}
+  h2 Summary for #{res.data.finance_sumary.finance_month}
   table#summary-table
     tr
       th.tleft Details
       th.aright Total
     tr
       td Total Transactions :
-      td.aright #{res.data.finance_summary.total_transaction}
+      td.aright #{res.data.finance_sumary.total_transaction}
     tr
       td Payment Recieved :
-      td.aright #{res.data.finance_summary.sent_to_partner.value} 
+      td.aright #{res.data.finance_sumary.sent_to_partner.value} 
     tr
       td Payment to BV :
-      td.aright #{res.data.finance_summary.sent_to_bv.value}
+      td.aright #{res.data.finance_sumary.sent_to_bv.value}
 
   #details
     h2 Booking details
@@ -35,7 +35,7 @@ block content
         th.aright Transfer amount
       
       each transaction_details in res.data.transaction_details
-        each transactions in transaction_details.transactions
+        each transactions in transaction_details.transaction
           tr
             td.tleft 
               <h3>#{transactions.guest_name}</h3>
@@ -60,7 +60,7 @@ block content
       if (res.data.property.property_owners.length >= 0)
        each owner in res.data.property.property_owners
         if (res.data.property.property_owners.length == 1)
-          h2 #{property_owners.name}
+          h2 #{owner.name}
         else if (res.data.property.property_owners.length > 1)
           h2= owner.name + ' , '
     .rizkyright
