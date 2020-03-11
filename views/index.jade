@@ -5,11 +5,12 @@ block content
     img.logo(src="https://user-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/66671/BukitVista_LOGO_ONLY_transparent_negces.png", alt="Bukit Vista",)
     #title
      h1 Monthly Finance Report 
-     h4  #{res.data.property.property_name} #{res.data.property.property_address} #{res.data.property.area_name}
+     h4 #{res.data.property.property_name} #{res.data.property.property_address} 
+     h4 #{res.data.property.area_name}
   #summary-table
     table.sumtable
       tr
-        td.summarytitle Total Transactions :
+        td.summarytitle.st1 Total Transactions :
         td.aright #{res.data.finance_sumary.total_transaction}
       tr
         td.summarytitle Payment to Partner :
@@ -18,7 +19,7 @@ block content
         td.summarytitle Payment to BV :
         td.aright #{res.data.finance_sumary.sent_to_bv.value}
       tr 
-        td.summarytitle Payment pending :
+        td.summarytitle.st4 Payment pending :
         td.aright #{res.data.finance_sumary.pending_payment}
     
 
