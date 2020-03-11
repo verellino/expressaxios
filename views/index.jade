@@ -4,56 +4,68 @@ block content
   #header
     img.logo(src="https://user-images.strikinglycdn.com/res/hrscywv4p/image/upload/c_limit,fl_lossy,h_9000,w_1200,f_auto,q_auto/66671/BukitVista_LOGO_ONLY_transparent_negces.png", alt="Bukit Vista",)
     #title
-     h1 #{res.data.property.property_name} 
-
-      h4 #{res.data.property.property_address}, #{res.data.property.area_name}
-  h2 Summary for #{res.data.finance_sumary.finance_month}
-  table#summary-table
-    tr
-      th.tleft Details
-      th.aright Total
-    tr
-      td Total Transactions :
-      td.aright #{res.data.finance_sumary.total_transaction}
-    tr
-      td Payment Recieved :
-      td.aright #{res.data.finance_sumary.sent_to_partner.value} 
-    tr
-      td Payment to BV :
-      td.aright #{res.data.finance_sumary.sent_to_bv.value}
+     h1 Monthly Finance Report 
+     h4  #{res.data.property.property_name} #{res.data.property.property_address} #{res.data.property.area_name}
+  #summary-table
+    table.sumtable
+      tr
+        td.summarytitle Total Transactions :
+        td.aright #{res.data.finance_sumary.total_transaction}
+      tr
+        td.summarytitle Payment to Partner :
+        td.aright #{res.data.finance_sumary.sent_to_partner.value} 
+      tr
+        td.summarytitle Payment to BV :
+        td.aright #{res.data.finance_sumary.sent_to_bv.value}
+      tr 
+        td.summarytitle Payment pending :
+        td.aright #{res.data.finance_sumary.pending_payment}
+    
 
   #details
     h2 Booking details
 
     table.dtable
       tr
+        th
         th.tleft Guest Name
         th Check-in
-        th Length of Stay
-        th Booking value*
-        th Payout date
-        th.aright Transfer amount
+        th Booking value
+        th Payment to BV
+        th Payment to Partner
+        th
+        
       
       each transaction_details in res.data.transaction_details
+        tr.bundlerow
+          td 2020/02/02
+          td
+          td
+          td
+          td
+          td
         each transactions in transaction_details.transaction
           tr
+            td
             td.tleft 
               <h3>#{transactions.guest_name}</h3>
               <h4>#{transactions.booking_id}</h4>
-            td.checkindate #{transactions.booking_check_in}
-            td #{transactions.length_of_stay}
+            td.checkindate #{transactions.booking_check_in} 
+              h4 (#{transactions.length_of_stay} nights)
             td #{transactions.booking_value}
-            td #{transactions.payouts}
-            td.aright
-        tr.borderbottom 
+            td #{transactions.sent_to_bv}
+            td #{transactions.sent_to_partner}
+        tr.borderbottom
           td
           td
           td
           td
           td
-          td.total #{transaction_details.bundle_value}
+          td.total Total: <br> #{transaction_details.bundle_value}
+            
+        
 
-  p.info *including BV commission, and payout value
+  //- p.info *including BV commission, and payout value
   #footer
     .owner-left
       h2 Owner(s): 

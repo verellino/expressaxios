@@ -52,8 +52,8 @@ router.get('/print/:property_id/:yearMonth/:user_id/:token', async function prin
           format: 'A4',
           margin:{
               top: "1.5cm",
-              right: "1cm",
-              left: "1cm",
+              right: "0.5cm",
+              left: "0.5cm",
               bottom: "1.5cm"
           },
           printBackground: true
@@ -61,11 +61,12 @@ router.get('/print/:property_id/:yearMonth/:user_id/:token', async function prin
 
       console.log('PDF file created');
       await browser.close();
+      res.download(property_id + '_' + yearMonth + '.pdf');
       return pdf;
       // process.exit();
 
       // Response this call with the path of the file
-
+      
   }
 
   catch (e) {
