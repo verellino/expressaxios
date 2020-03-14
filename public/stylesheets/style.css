@@ -8,6 +8,7 @@ body {
 h1 {
   font-size: 20px;
   font-weight: 700;
+  color: #1076BC;
   margin: 5px 0 5px 0;
 }
 
@@ -39,15 +40,36 @@ p{
   margin-bottom: 20px;
 }
 .logo {  
-  max-width: 150px;
+  max-width: 100px;
   display: flex;
   align-items: center;
   margin-right: 30px;
 }
 
 #summary-table {
+  min-width: fit-content;
+  max-width: 300px;
+  margin-bottom:50px;
+  border-radius: 15px;
+  box-shadow:0 6px 6px rgba(16, 118, 188,0.20);
+}
+.sumtable{
   width: 100%;
-  margin-bottom:20px;
+  border-radius: 15px;
+}
+.sumtable td{
+  padding: 20px;
+}
+.summarytitle{
+  background-color: rgba(16, 118, 188,0.2);
+  font-weight: 600;
+  min-width: 150px;
+}
+.st1{
+  border-radius: 15px 0 0 0;
+}
+.st4{
+  border-radius: 0 0 0 15px;
 }
 .aright{
   text-align: right;
@@ -60,7 +82,7 @@ p{
   text-align: center;
 }
 th{
-  color: #1076BC;
+  color: rgb(16, 118, 188);
 }
 th,td{
   font-size: 8;
@@ -77,20 +99,22 @@ display: none;
 }
 .checkindate{
   max-width: 50px;
+  font-size: 8px;
 }
 .total {
   text-align: right;
-  font-size: 16px;
   color: #1076BC;
   font-weight: 700;
-  border-top: 1px solid rgba(0, 0, 0, 0.45);
+  max-width: 100px;
+  font-size: 14px;
+  overflow-x: visible;
 }
 table,td,th{
   /* border-bottom: 1.5px solid rgba(7,49,75,10%); */
   border-collapse: collapse;
 }
-tr:nth-child(even) {
-  background-color: rgba(7,49,75,6%);
+.bundlerow {
+  background-color:  rgba(16, 118, 188,0.20);
 }
 .borderbottom{
   border-bottom: 1px solid rgba(16, 119, 188,0.5);
